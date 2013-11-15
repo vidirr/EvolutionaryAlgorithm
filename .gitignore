@@ -1,0 +1,17 @@
+#java specific
+.classpath
+*.class
+
+#BattlSim specific
+history.arff
+
+## generic files to ignore
+*~
+*.lock
+*.DS_Store
+*.swp
+*.out
+
+#IntelliJ
+*.itml
+*.iml
