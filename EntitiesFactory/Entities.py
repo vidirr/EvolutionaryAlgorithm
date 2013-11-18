@@ -1,4 +1,9 @@
-#Genome entity - used to represent individuals in population.
+"""
+Implementations of entities that are used to represent
+entities in the problems
+
+"""
+
 
 
 class Genome:

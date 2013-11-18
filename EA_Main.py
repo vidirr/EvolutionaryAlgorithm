@@ -1,6 +1,6 @@
 #! /usr/bin/env python2
 import random
-from Tests import TestFactory
+from TestsFactory import Tests
 from MTrandom.MTrandom import  MersenneTwister as MT
 
 
@@ -10,7 +10,7 @@ from MTrandom.MTrandom import  MersenneTwister as MT
 def f1_sol(N, iters=1000):
 
 	#Get access to test function module.
-	t = TestFactory
+	t = Tests
 
 	#MresenneTwister random generator - Python port of the code
 	#that is given for mtrandom on MySchool.
