@@ -13,8 +13,8 @@ def main():
 
 	#TODO: Parse config.
 	#I just don't feel like it right now.
-	f1_sol(N=10)
-
+	ans = f1_sol(N=1000)
+	print ans
 
 if __name__ == "__main__":
 	main()
