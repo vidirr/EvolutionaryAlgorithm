@@ -3,6 +3,7 @@ from TestsFactory import Tests as T
 from EvaluationMethodFactory import EvaluationMethods as EM
 #USED INSTEAD OF RANDOM
 from MTrandom.MTrandom import  MersenneTwister as MT
+from SelectionMethodFactory import SelectionMethods as SM
 
 
 def BEA(N, xmin, xmax, optimum, iters=1000):
@@ -23,7 +24,8 @@ def BEA(N, xmin, xmax, optimum, iters=1000):
 		cpop = []
 		while len(cpop) < N:
 			#Select random parents
-			p1, p2 = P[mt.uniform(0, N)], P[mt.uniform(0, N)]
+			p1 = SM.TournamentSelection(P) 
+			p2 = SM.TournamentSelection(P) 
 			c1, c2 = crossover(p1, p2)
 			mutate(c1, c2)
 			evaluate(c1, c2)
