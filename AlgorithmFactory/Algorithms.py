@@ -21,10 +21,16 @@ def BEA(N, xmin, xmax, optimum, iters=1000):
 	while cnt < iters and not Done:
 
 		cpop = []
-		#while len(cpop) < N:
+		while len(cpop) < N:
+			#Select random parents
+			p1, p2 = P[mt.uniform(0, N)], P[mt.uniform(0, N)]
+			c1, c2 = crossover(p1, p2)
+			mutate(c1, c2)
+			evaluate(c1, c2)
+			cpop.append(c1)
+			cpop.append(c2)
 
-
-		ans = T.f1(P)
+		P = cpop
 		print ans
 		return
 		#Select parent pool from P

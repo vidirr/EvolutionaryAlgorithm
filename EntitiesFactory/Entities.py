@@ -3,13 +3,7 @@ Implementations of entities that are used to represent
 entities in the problems of the De Jong's Test Suite.
 
 """
-
-import struct
-def binary(num):
-    return ''.join(bin(ord(c)).replace('0b', '').rjust(8, '0') for c in struct.pack('!f', num))
-
-
-
+from Bitstring.bitstring import BitArray, BitStream
 class GenomeF1:
 
 	def __init__(self, fitness):
@@ -18,17 +12,17 @@ class GenomeF1:
 		self.setDNA()
 
 	def __repr__(self):
-		return "GenomeF1: " + str(self._fitness) + " - " + str(self._dna) 
+		return "GenomeF1: " + "Fit: " + str(self._fitness) + "\n" + "DNA: " + str(self._dna.bin) + "\n\n"
 
 	def getFitness(self):
-
 		return self._fitness
 
 	def setDNA(self):
-		self._dna = binary(self._fitness)
+		self._dna = BitArray(float=self._fitness, length=32)
 
 	def getDNA(self):
 		return self._dna
+
 
 
 
