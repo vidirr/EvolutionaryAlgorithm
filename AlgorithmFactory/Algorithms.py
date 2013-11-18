@@ -6,6 +6,8 @@ from MTrandom.MTrandom import  MersenneTwister as MT
 from SelectionMethodFactory import SelectionMethods as SM
 from CrossoverFactory import Crossovers as CO
 
+#Just used for shuffle-ing
+import random
 
 def BEA(N, xmin, xmax, optimum, iters=1000):
 	"""  
@@ -18,26 +20,32 @@ def BEA(N, xmin, xmax, optimum, iters=1000):
 	cnt, Done = 0, False
 
 	#Initial population
-	P = [GenomeF1(value=mt.uniform(xmin, xmax)) for _ in xrange(N)]
+	P = [GenomeF1(value=mt.uniform(xmin, xmax)) for _ in range(N)]
+
 	#Evaluate the fitness level of all genomes.
 	for g in P:
-		g.setFitness( T.f1(g.getValue()) )
+		g.setFitness( T.f1([g.getValue()]) )
 	print P
 	while cnt < iters and not Done:
-
+		random.shuffle(P)
 		cpop = []
 		while len(cpop) < N:
 			#Select random parents
-			p1, p2 = SM.TournamentSelection(P), SM.TournamentSelection(P) 
-			c1, c2 = CO.OnePointCrossover(p1, p2)
-			mutate(c1, c2)
-			evaluate(c1, c2)
+			p1, p2 = SM.TournamentSelection(P, mt), SM.TournamentSelection(P, mt) 
+			c1, c2 = CO.OnePointCrossover(p1, p2, mt)
+			#mutate(c1, c2)
+			#Set the fitness of the new children by sending a list of 1
+			#into the test function.
+			c1.setFitness( T.f1([c1.getValue()]))
+			c2.setFitness( T.f1([c2.getValue()]))
 			cpop.append(c1)
 			cpop.append(c2)
 
 		P = cpop
-		print ans
-		return
+		P = sorted(P)
+		#print "Best:", P[0], "Worst:", P[-1]
+		print P
+		import time; time.sleep(1)
 		#Select parent pool from P
 
 

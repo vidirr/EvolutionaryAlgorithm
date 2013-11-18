@@ -16,21 +16,19 @@ def RouletteWheelSelection():
 	"""
 	pass
 
-def TournamentSelection(P):
+def TournamentSelection(P, mt):
 	"""
 	Selects to Genomes from population at random and uniformly
 	to use as parents.
 	"""
-	mt = MT()
 	N = len(P)
-	return P[mt.randint(0, N)]
+	return P[mt.randint(0, N - 1)]
 	
 
-def RankBiasedSelection(bias, P):
+def RankBiasedSelection(bias, P, mt):
 	"""
 	Selects parent based on relative fitness.
 	"""
-	mt = MT()
 	u = mt.uniform(0, 1)
 	idx = math.floor( ((bias - math.sqrt(bias**2 - 4.0*(b - 1)*U)) / 2.0) / (b - 1)) 
 	return P[idx]
