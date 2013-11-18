@@ -1,5 +1,4 @@
-from EntitiesFactory.Entities import GenomeF1
-from TestsFactory import Tests as T
+
 from EvaluationMethodFactory import EvaluationMethods as EM
 #USED INSTEAD OF RANDOM
 from MTrandom.MTrandom import  MersenneTwister as MT
@@ -14,22 +13,21 @@ def fprint(n):
 	sys.stdout.write(n)
 	sys.stdout.flush()
 
-def BEA(N, xmin, xmax, optimum, iters=1000):
+def BEA(N, xmin, xmax, genome, test, iters=1000):
 	"""  
 		Implementation of the BasicEvolutionaryAlgorithm as presented
 		in the slides.
 
 	"""
-
 	mt = MT()
 	cnt, Done = 0, False
 
 	#Initial population
-	P = [GenomeF1(value=mt.uniform(xmin, xmax)) for _ in range(N)]
+	P = [genome(value=mt.uniform(xmin, xmax)) for _ in range(N)]
 
 	#Evaluate the fitness level of all genomes.
 	for g in P:
-		g.setFitness( T.f1([g.getValue()]) )
+		g.setFitness( test([g.getValue()]) )
 	while cnt < iters and not Done:
 		fprint("Iteration " + str(cnt) + "/" + str(iters) + "\r")
 		cnt += 1
@@ -42,8 +40,8 @@ def BEA(N, xmin, xmax, optimum, iters=1000):
 			#mutate(c1, c2)
 			#Set the fitness of the new children by sending a list of 1
 			#into the test function.
-			c1.setFitness( T.f1([c1.getValue()]))
-			c2.setFitness( T.f1([c2.getValue()]))
+			c1.setFitness( test([c1.getValue()]))
+			c2.setFitness( test([c2.getValue()]))
 			cpop.append(c1) if c1.getFitness() < c2.getFitness() else cpop.append(c2)
 
 		P = cpop

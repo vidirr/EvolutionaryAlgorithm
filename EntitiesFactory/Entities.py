@@ -21,6 +21,9 @@ class GenomeF1:
 
 		#Used when creating the Genome with a DNA string.
 		elif value is None:
+			#Make sure we get the 0b at the beginning of the string.
+			#This is used to represent binary strings in Python.
+			DNA = DNA if (DNA[2:] != '0b') else '0b' + DNA
 			self._dna = BitArray(DNA)
 			self._value = self._dna.float
 			self._fitness = None
@@ -42,6 +45,10 @@ class GenomeF1:
 	def getValue(self):
 		return self._value
 
-
+class GenomeF2:
+	"""
+		F2 has a different representation of the problem since it uses a
+		vector of 
+	"""
 
 
