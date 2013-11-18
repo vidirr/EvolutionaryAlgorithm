@@ -13,7 +13,7 @@ def main():
 
 	#TODO: Parse config.
 	#I just don't feel like it right now.
-	f1_sol(1000)
+	f1_sol(N=10)
 
 
 if __name__ == "__main__":

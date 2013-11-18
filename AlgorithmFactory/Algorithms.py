@@ -1,8 +1,9 @@
-from TestsFactory import Tests
-
+from EntitiesFactory.Entities import GenomeF1
+from TestsFactory import Tests as T
+from EvaluationMethodFactory import EvaluationMethods as EM
 #USED INSTEAD OF RANDOM
 from MTrandom.MTrandom import  MersenneTwister as MT
-mt = MT()
+
 
 def BEA(N, xmin, xmax, optimum, iters=1000):
 	"""  
@@ -11,13 +12,19 @@ def BEA(N, xmin, xmax, optimum, iters=1000):
 
 	"""
 
+	mt = MT()
 	cnt, Done = 0, False
 
 	#Initial population
-	P = [mt.uniform(xmin, xmax) for _ in range(N)]
-	
+	P = [GenomeF1(mt.uniform(xmin, xmax)) for _ in xrange(N)]
+	print P
 	while cnt < iters and not Done:
-		ans = Tests.f1(P)
+
+		cpop = []
+		#while len(cpop) < N:
+
+
+		ans = T.f1(P)
 		print ans
 		return
 		#Select parent pool from P

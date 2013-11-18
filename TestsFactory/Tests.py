@@ -12,7 +12,7 @@ from math import *
 def f1(xs):
     sum = 0.0
     for x in xs:
-        sum += x**2
+        sum += x.getFitness()**2
     return sum
 
 """
