@@ -20,9 +20,6 @@ def f1_sol(N, iters=1000):
 	xmin = -5.12
 	xmax = 5.11
 
-
-
-
 	i = 0
 	Done = False
 	#Just a random number, basically just can't be 0
@@ -44,6 +41,8 @@ def f1_sol(N, iters=1000):
 
 def main():
 
+	#TODO: Parse config.
+	#I just don't feel like it right now.
 	f1_sol(1000)
 
 
