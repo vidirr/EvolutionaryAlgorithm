@@ -11,13 +11,24 @@ class GenomeF1:
 		_fitness is the fitness of the entity evaluated by the eval function.
 	"""
 
-	def __init__(self, value=None, DNA=None, fitness=None):
+	def __init__(self, mt=None, xval=None, value=None, DNA=None, fitness=None):
 
 		#Used when creating the Genome with a random float number.
-		if DNA is None:
+		if mt is not None:
+			if xval is None:
+				#Should raise a custom exception.
+				raise Exception
+			#xval is the touple (xmin, xmax)
+			xmin, xmax = xval
+			self._value = mt.uniform(xmin, xmax)
+			self._dna = BitArray(float=self._value, length=32)
+			return
+
+		elif DNA is None:
 			self._value = value
 			self._dna = BitArray(float=value, length=32)
 			self._fitness = None
+			return
 
 		#Used when creating the Genome with a DNA string.
 		elif value is None:
@@ -27,7 +38,7 @@ class GenomeF1:
 			self._dna = BitArray(DNA)
 			self._value = self._dna.float
 			self._fitness = None
-
+			return
 
 
 	def __repr__(self):
@@ -48,7 +59,9 @@ class GenomeF1:
 class GenomeF2:
 	"""
 		F2 has a different representation of the problem since it uses a
-		vector of 
+		vector of 2 to represent itself. 
+
 	"""
+	pass
 
 

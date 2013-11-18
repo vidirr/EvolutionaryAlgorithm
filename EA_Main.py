@@ -19,13 +19,16 @@ def f2_sol(N, iters=1000):
 
 
 def main():
+	#Parsing command line arguments for now..
+	#1 for f1, 2 for f2 etc.
+	#This will of course be parsed from the config file like everything else.
 	if(len(sys.argv) > 1):
 		prob = sys.argv[1]
 
 	#TODO: Parse config.
 	#I just don't feel like it right now.
 	if prob == "1":
-		ans = f1_sol(1000)
+		ans = f1_sol(50)
 	elif prob == "2":
 		ans = f2_sol(1000)
 	else:

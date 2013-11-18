@@ -23,7 +23,7 @@ def BEA(N, xmin, xmax, genome, test, iters=1000):
 	cnt, Done = 0, False
 
 	#Initial population
-	P = [genome(value=mt.uniform(xmin, xmax)) for _ in range(N)]
+	P = [genome(mt=mt, xval=(xmin, xmax)) for _ in xrange(N)]
 
 	#Evaluate the fitness level of all genomes.
 	for g in P:
@@ -35,11 +35,16 @@ def BEA(N, xmin, xmax, genome, test, iters=1000):
 		cpop = []
 		while len(cpop) < N:
 			#Select random parents
+			#TODO: Make SelectionMethod and CrossoverMethod parameters
+			#to the algorithm so that it can be envoked for any problem.
 			p1, p2 = SM.TournamentSelection(P, mt), SM.TournamentSelection(P, mt) 
 			c1, c2 = CO.OnePointCrossover(p1, p2, mt)
+
+			#TODO: Implement mutation.
 			#mutate(c1, c2)
+
 			#Set the fitness of the new children by sending a list of 1
-			#into the test function.
+			#individual into the test function.
 			c1.setFitness( test([c1.getValue()]))
 			c2.setFitness( test([c2.getValue()]))
 			cpop.append(c1) if c1.getFitness() < c2.getFitness() else cpop.append(c2)
