@@ -31,6 +31,11 @@ crossover_types = {
     "TwoPoint" : CO.TwoPointCrossover,
 }
 
+replacement_methods = {
+    "Generational" : RM.Generational,
+    "Elitism" : RM.ElitismSelection,
+}
+
 def fprint(n):
 	import sys
 	sys.stdout.write(n)
@@ -45,11 +50,10 @@ def inrange(vals, range):
 	return True
 
 
-def BEA(N, popsize, xmin, xmax, testfunc, iters, crossover, selection):
+def BEA(N, popsize, xmin, xmax, testfunc, iters, crossover, selection, mutation, replacement):
 	"""  
 		Implementation of the BasicEvolutionaryAlgorithm as presented
 		in the slides.
-
 	"""
 	test = test_functions[testfunc]
 	mt = MT()
@@ -93,7 +97,7 @@ def BEA(N, popsize, xmin, xmax, testfunc, iters, crossover, selection):
 			elif inrange(c2.getValues(), (xmin, xmax)):
 				cpop.append(c2)
 
-		P = RM.ElitismSelection(P, cpop)
+		P = replacement_methods[replacement](P, cpop)
 
 	#print P
 	return sorted(P, key=lambda x: x.getFitness())[0]
