@@ -1,19 +1,21 @@
-
+ 
 from EvaluationMethodFactory import EvaluationMethods as EM
 #USED INSTEAD OF RANDOM
 from MTrandom.MTrandom import  MersenneTwister as MT
 from SelectionMethodFactory import SelectionMethods as SM
 from CrossoverFactory import Crossovers as CO
+from EntitiesFactory.Entities import Genome
 
 #Just used for shuffle-ing
 import random
+import math
 
 def fprint(n):
 	import sys
 	sys.stdout.write(n)
 	sys.stdout.flush()
 
-def BEA(N, xmin, xmax, genome, test, iters=1000):
+def BEA(N, popsize, xmin, xmax, test, iters=100):
 	"""  
 		Implementation of the BasicEvolutionaryAlgorithm as presented
 		in the slides.
@@ -22,37 +24,40 @@ def BEA(N, xmin, xmax, genome, test, iters=1000):
 	mt = MT()
 	cnt, Done = 0, False
 
+	print "Configuration:\n============\nN: {0}\nPopulation size: {1}\nRange:{2}\nIterations:{3}\n".format(N, popsize, (xmin, xmax), iters)
 	#Initial population
-	P = [genome(mt=mt, xval=(xmin, xmax)) for _ in xrange(N)]
+	print "initializing population.."
+	P = [Genome(N=N, mt=mt, xval=(xmin, xmax)) for _ in xrange(popsize)]
 
-	#Evaluate the fitness level of all genomes.
+	#Evaluate the fitness level of all Genomes.
+	print "Evaluating fitness level of initial population..",
 	for g in P:
-		g.setFitness( test([g.getValue()]) )
+		g.setFitness( test(g.getValues()) )
+
+	print "Done.\nStarting algorithm.\n"
 	while cnt < iters and not Done:
-		fprint("Iteration " + str(cnt) + "/" + str(iters) + "\r")
+		fprint("Iteration {0}/{1}\r".format(cnt, iters))
 		cnt += 1
-		random.shuffle(P)
 		cpop = []
-		while len(cpop) < N:
+		while len(cpop) < popsize:
 			#Select random parents
 			#TODO: Make SelectionMethod and CrossoverMethod parameters
 			#to the algorithm so that it can be envoked for any problem.
 			p1, p2 = SM.TournamentSelection(P, mt), SM.TournamentSelection(P, mt) 
-			c1, c2 = CO.OnePointCrossover(p1, p2, mt)
+			c1, c2 = CO.TwoPointCrossover(p1, p2, mt)
 
 			#TODO: Implement mutation.
 			#mutate(c1, c2)
 
 			#Set the fitness of the new children by sending a list of 1
 			#individual into the test function.
-			c1.setFitness( test([c1.getValue()]))
-			c2.setFitness( test([c2.getValue()]))
-			cpop.append(c1) if c1.getFitness() < c2.getFitness() else cpop.append(c2)
+			c1.setFitness( test(c1.getValues() ))
+			c2.setFitness( test(c2.getValues() ))
+
+			cpop.append(c1) if (math.fabs(c1.getFitness()) < math.fabs(c2.getFitness())) else cpop.append(c2)
+
 
 		P = cpop
-		P = sorted(P)
-		#print "Best:", P[0], "Worst:", P[-1]
-		#Select parent pool from P
 
-
-	return P[0]
+	#print P
+	return sorted(P)[0]

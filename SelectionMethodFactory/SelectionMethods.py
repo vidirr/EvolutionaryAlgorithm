@@ -30,5 +30,5 @@ def RankBiasedSelection(bias, P, mt):
 	Selects parent based on relative fitness.
 	"""
 	u = mt.uniform(0, 1)
-	idx = math.floor( ((bias - math.sqrt(bias**2 - 4.0*(b - 1)*U)) / 2.0) / (b - 1)) 
+	idx = math.floor( len(P)*((bias - math.sqrt(bias**2 - 4.0*(b - 1)*U)) / 2.0) / (b - 1) ) 
 	return P[idx]

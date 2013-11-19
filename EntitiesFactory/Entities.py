@@ -4,49 +4,48 @@ entities in the problems of the De Jong's Test Suite.
 
 """
 from Bitstring.bitstring import BitArray, BitStream
-class GenomeF1:
+class Genome:
 	"""
-		_value is the float representation of the binary string
-		_dna is the binary representation of the entity
+		_values is a list of the float values that define the current entity.
+		_dna is a list of the binary representations of the entity values
 		_fitness is the fitness of the entity evaluated by the eval function.
+
+		N defines the number of values the current individual stores.
 	"""
 
-	def __init__(self, mt=None, xval=None, value=None, DNA=None, fitness=None):
+	def __init__(self, N=None, mt=None, xval=None, value=None, DNA=None, fitness=None):
 
-		#Used when creating the Genome with a random float number.
-		if mt is not None:
-			if xval is None:
-				#Should raise a custom exception.
-				raise Exception
-			#xval is the touple (xmin, xmax)
+		self._values = []
+		self._dna = []
+		self._fitness = None #Uninitialzed
+		#Used in Roulette Wheel Selection
+		self._P = None
+
+		if mt:
 			xmin, xmax = xval
-			self._value = mt.uniform(xmin, xmax)
-			self._dna = BitArray(float=self._value, length=32)
-			return
+			for _ in range(N):
+				cval = mt.uniform(xmin, xmax)
+				self._values.append(cval)
+				self._dna.append(BitArray(float=cval, length=32))
 
-		elif DNA is not None:
-			self._dna = []
-			
-
-		elif DNA is None:
-			self._value = value
-			self._dna = BitArray(float=value, length=32)
-			self._fitness = None
-			return
-
-		#Used when creating the Genome with a DNA string.
-		elif value is None:
-			#Make sure we get the 0b at the beginning of the string.
-			#This is used to represent binary strings in Python.
-			DNA = DNA if (DNA[2:] != '0b') else '0b' + DNA
-			self._dna = BitArray(DNA)
-			self._value = self._dna.float
-			self._fitness = None
-			return
-
-
+		#If we get a list of DNA strings (from crossover for example) we just append the values of the DNA string into values.
+		elif DNA:
+			for d in DNA:
+				#Make sure we get the 0b at the front of the string.
+				d = d if(d[2:] != '0b') else '0b' + d
+				d = BitArray(bin=d)
+				#Store strings
+				self._dna.append(d)
+				#And values of the strings
+				self._values.append(d.float)
+		
 	def __repr__(self):
-		return "Genome type: F1\n" + "Fit: " + str(self._fitness) + "\n" + "DNA: " + str(self._dna.bin) + "\n\n"
+
+		rep = "Fitness level: " + str(self._fitness)
+		for i in range(len(self._values)):
+		 	rep += '\nVal: ' + str(self._values[i]) + ' - DNA: ' + str(self._dna[i].bin) + "\n\n"
+		return rep
+
 
 	def setFitness(self, f):
 		self._fitness = f
@@ -57,15 +56,7 @@ class GenomeF1:
 	def getDNA(self):
 		return self._dna
 
-	def getValue(self):
-		return self._value
-
-class GenomeF2:
-	"""
-		F2 has a different representation of the problem since it uses a
-		vector of 2 to represent itself. 
-
-	"""
-	pass
+	def getValues(self):
+		return self._values
 
 

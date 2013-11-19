@@ -1,4 +1,4 @@
-from EntitiesFactory.Entities import GenomeF1
+from EntitiesFactory.Entities import Genome
 #USED INSTEAD OF RANDOM
 from MTrandom.MTrandom import  MersenneTwister as MT
 from Bitstring.bitstring import BitArray, BitStream
@@ -23,17 +23,44 @@ def OnePointCrossover(g1, g2, mt):
 
 	#We get two double arrays, dna1 == [[1010110...], [011101101..], ] etc.
 	dna1, dna2 = g1.getDNA(), g2.getDNA()
-	c1col = [], c2col = []
+	c1col = []
+	c2col = []
 	
 	for i in range( len(dna1) ):
 
-		point = mt.randint(0, len(dna1))
+		point = mt.randint(0, len(dna1[i].bin))
 		#Crossover
-		x, y = dna1[i], dna2[i]
+		x, y = dna1[i].bin, dna2[i].bin
 		c1 = x[:point] + y[point:]
 		c2 = y[:point] + x[point:]
 
 		c1col.append(c1), c2col.append(c2)
-	#import pdb; pdb.set_trace()
+	return Genome(DNA=c1col), Genome(DNA=c2col)
 
-	return GenomeF1(DNA=c1col), GenomeF1(DNA=c2col)
+
+def TwoPointCrossover(g1, g2, mt):
+
+
+	def sort(p1, p2):
+		return (p1, p2) if (p1 < p2) else (p2, p1)
+
+	dna1, dna2 = g1.getDNA(), g2.getDNA()
+	c1col = []
+	c2col = []
+
+	for i in range( len(dna1) ):
+
+		p1 =  mt.randint(0, len(dna1[i].bin))
+		p2 =  mt.randint(0, len(dna1[i].bin))
+
+		p1 , p2 = sort(p1, p2)
+
+		x, y = dna1[i].bin, dna2[i].bin
+
+		c1 = x[:p1] + y[p1:p2] + x[p2:]
+		c2 = y[:p1] + x[p1:p2] + y[p2:]
+
+		c1col.append(c1)
+		c2col.append(c2)
+
+	return Genome(DNA=c1col), Genome(DNA=c2col)
