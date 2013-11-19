@@ -40,9 +40,9 @@ class Genome:
 		
 	def __repr__(self):
 
-		rep = "Fitness level: " + str(self._fitness)
+		rep = "Fitness level: {0}\n".format(self._fitness)
 		for i in range(len(self._values)):
-		 	rep += '\nVal: ' + str(self._values[i]) + ' - DNA: ' + str(self._dna[i].bin) + "\n\n"
+		 	rep += 'Chromosome {0} - Val: {1} - DNA: {2} \n'.format(i, self._values[i], self._dna[i].bin)
 		return rep
 
 
