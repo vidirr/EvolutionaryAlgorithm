@@ -54,11 +54,11 @@ def inrange(vals, range):
 
 def mutate(c, chance, mt):
 
-	if mt.genrand_real1() <= chance:
+	#if mt.genrand_real1() <= chance:
 
-		chrom = c.getDNA()[mt.randint( 0, len(c.getDNA()) - 1)]
-		bit = mt.randint(0, len(chrom.bin) - 1)
-		chrom.invert(bit)
+	chrom = c.getDNA()[mt.randint( 0, len(c.getDNA()) - 1)]
+	bit = mt.randint(0, len(chrom.bin) - 1)
+	chrom.invert(bit)
 
 
 
@@ -117,6 +117,7 @@ def BEA(N, popsize, xmin, xmax, testfunc, iters, crossover, selection, mutation,
 
 
 		P = replacement_methods[replacement](P, cpop)
+		print sorted(P, key=lambda x: x.getFitness())[0]
 
 	#print P
 	return sorted(P, key=lambda x: x.getFitness())[0]
