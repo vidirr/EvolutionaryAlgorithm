@@ -31,6 +31,11 @@ crossover_types = {
     "TwoPoint" : CO.TwoPointCrossover,
 }
 
+replacement_methods = {
+    "Generational" : RM.GenerationalReplacement,
+    "Elitism" : RM.ElitismReplacement,
+}
+
 def fprint(n):
 	import sys
 	sys.stdout.write(n)
@@ -50,12 +55,13 @@ def mutate(c, chance, mt):
 	if mt.genrand_real1() <= chance:
 
 		chrom = c.getDNA()[mt.randint( 0, len(c.getDNA()) - 1)]
-		bit = mt.randint(0, len(bit.bin) - 1)
-		chrom.bin[bit] = !chrom.bin[bit]
+		bit = mt.randint(0, len(chrom.bin) - 1)
+		chrom.invert(bit)
 
 
 
-def BEA(N, popsize, xmin, xmax, testfunc, iters, crossover, selection):
+
+def BEA(N, popsize, xmin, xmax, testfunc, iters, crossover, selection, mutation, replacement):
 	"""  
 		Implementation of the BasicEvolutionaryAlgorithm as presented
 		in the slides.
@@ -65,6 +71,7 @@ def BEA(N, popsize, xmin, xmax, testfunc, iters, crossover, selection):
 	mt = MT()
 	cnt, Done = 0, False
 
+	#print "Configuration:\n============\nN: {0}\nPopulation size: {1}\nRange: {2}\nIterations: {3}\n".format(N, popsize, (xmin, xmax), iters)
 	print "Configuration:\n============\nN: {0}\nPopulation size: {1}\nRange: {2}\nIterations: {3}\n".format(N, popsize, (xmin, xmax), iters)
 	#Initial population
 	print "initializing population.."
@@ -95,7 +102,8 @@ def BEA(N, popsize, xmin, xmax, testfunc, iters, crossover, selection):
 			#individual into the test function.
 			c1.setFitness( test(c1.getValues() ))
 			c2.setFitness( test(c2.getValues() ))
-
+			mutate(c1, mutation, mt)
+			mutate(c2, mutation, mt)
 			if inrange(c1.getValues(), (xmin, xmax)) and inrange(c2.getValues(), (xmin, xmax)):
 				cpop.append(c1) if (math.fabs(c1.getFitness()) < math.fabs(c2.getFitness())) else cpop.append(c2)
 			elif inrange(c1.getValues(), (xmin, xmax)) and not inrange(c2.getValues(), (xmin, xmax)):
@@ -103,7 +111,7 @@ def BEA(N, popsize, xmin, xmax, testfunc, iters, crossover, selection):
 			elif inrange(c2.getValues(), (xmin, xmax)):
 				cpop.append(c2)
 
-		P = RM.ElitismReplacement(P, cpop)
+		P = replacement_methods[replacement](P, cpop)
 
 	#print P
 	return sorted(P, key=lambda x: x.getFitness())[0]
