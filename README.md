@@ -6,7 +6,7 @@ Evolutionary Algorithms
 1. [Introduction](#intro)
 2. [Installation](#install)
 3. [Running the program](#run)
-4. [Configuration File](#config)
+3.1 [Configuration File](#config)
 
 
 <a name="intro" />
@@ -26,4 +26,4 @@ This code is published under the GNU GPL.
 ##3 - Running the program
 
 <a name="config" />
-###4 - Configuration File
+###3.1 - Configuration File
