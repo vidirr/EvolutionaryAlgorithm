@@ -3,9 +3,9 @@ Evolutionary Algorithms
 
 ##### Table of contents
 
-[Introduction](#intro)
-[Running the program](#run)
-[Configuration File](#config)
+[Introduction][#intro]
+[Running the program][#run]
+[Configuration File][#config]
 
 
 <a name="intro" />
