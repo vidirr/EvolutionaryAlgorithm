@@ -1,54 +1,32 @@
-__author__ = 'GSUS'
-
 import ConfigParser
 
 config = ConfigParser.ConfigParser()
 config.read('config.ini')
 
-n = config.getint('BEA', 'N')
-range_min = config.getfloat('BEA', 'RANGE_MIN')
-range_max = config.getfloat('BEA', 'RANGE_MAX')
-test_function = config.get('BEA', 'TEST_FUNCTION')
-iterations = config.getint('BEA', 'ITERATIONS')
-selection_scheme = config.get('BEA', 'SELECTION_SCHEME')
-crossover_type = config.get('BEA', 'CROSSOVER_TYPE')
-mutation_type = config.get('BEA', 'MUTATION_TYPE')
+
+def get_config_for_test(string):
+    """
+    Returns a dict with the configuration values of the string
+    thats sent in to the function.
+
+    """
+
+    return {'n': config.getint(string, 'N'),
+            'range_min': config.getfloat(string, 'RANGE_MIN'),
+            'range_max': config.getfloat(string, 'RANGE_MAX'),
+            'test_function': config.get(string, 'TEST_FUNCTION'),
+            'iterations': config.getint(string, 'ITERATIONS'),
+            'crossover_type': config.get(string, 'CROSSOVER_TYPE'),
+            'mutation_type': config.get(string, 'MUTATION_TYPE')}
 
 
-print "N =",n
-print "Range(",range_min,",",range_max,")"
-print "Test function = ",test_function
-print "Iterations =",iterations
-print "Selection Scheme = ", selection_scheme
-print "Crossover Type = ", crossover_type
-print "Mutation Type = ", mutation_type
 
-def f1():
-    print "F1"
-def f2():
-    print "F2"
-def shekel():
-    print "Shekel"
-def rana():
-    print "rana"
+def main():
+    test = ['TEST1', 'TEST2', 'TEST3', 'TEST4',
+            'TEST5', 'TEST6', 'TEST7', 'TEST8']
+    for x in test:
+        print get_config_for_test(x)
 
-test_functions = {
-    "F1" : f1,
-    "F2" : f2,
-    "Shekel" : shekel,
-    "Rana" : rana,
-}
 
-selection_schemes = {
-    "Roulette" : RouletteWheelSelection,
-    "Tournament" : TournamentSelection,
-    "RankBiased" : RankBiasedSelection,
-}
-
-crossover_types = {
-    "OnePoint" : OnePointCrossover,
-}
-
-mutation_types = {
-    "Whatever" : Whatever
-}
+if __name__ == '__main__':
+    main()
