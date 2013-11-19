@@ -17,18 +17,7 @@ def SteadyStateSelection(pop, cpop):
 	Some parents always survive.
 
 	"""
-	pop = sorted(pop, lambda x: x.getFitness())
-	cpop = sorted(cpop, lambda x: x.getFitness())
-	newpop = []
-	# 10% of best parents might survive.
-	idx = len(pop) / 10
 
-	#Make sure we only replace with better children.
-	for i in range(idx):
-		newpop.append(pop[idx]) if (pop[idx].getFitness() < cpop[idx].getFitness()) else newpop.append(cpop[idx])
-	newpop += cpop[idx:]
-
-	return random.shuffle(newpop)
 
 
 def ElitismSelection(pop, cpop):
@@ -39,7 +28,19 @@ def ElitismSelection(pop, cpop):
 	but may result in premature convergence.
 
 	"""
-	pass
+	pop = sorted(pop, key=lambda x: x.getFitness())
+	cpop = sorted(cpop, key=lambda x: x.getFitness())[::-1]
+	newpop = []
+	# 10% of best parents might survive.
+	idx = len(pop) / 10
+
+	#Make sure we only replace with better children.
+	newpop = pop[:idx] + cpop[idx:]
+
+	#print "Length: " + str(len(newpop)) + "\n"
+	#mport time; time.sleep(1)
+	return newpop
+
 
 def TruncationSelection(pop, cpop):
 	"""

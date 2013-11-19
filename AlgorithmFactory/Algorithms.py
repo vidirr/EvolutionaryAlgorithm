@@ -4,6 +4,7 @@ from EvaluationMethodFactory import EvaluationMethods as EM
 from MTrandom.MTrandom import  MersenneTwister as MT
 from SelectionMethodFactory import SelectionMethods as SM
 from CrossoverFactory import Crossovers as CO
+from ReplacementMethodFactory import ReplacementMethods as RM
 from EntitiesFactory.Entities import Genome
 
 #Just used for shuffle-ing
@@ -33,7 +34,7 @@ def BEA(N, popsize, xmin, xmax, test, iters):
 	mt = MT()
 	cnt, Done = 0, False
 
-	print "Configuration:\n============\nN: {0}\nPopulation size: {1}\nRange:{2}\nIterations:{3}\n".format(N, popsize, (xmin, xmax), iters)
+	print "Configuration:\n============\nN: {0}\nPopulation size: {1}\nRange: {2}\nIterations: {3}\n".format(N, popsize, (xmin, xmax), iters)
 	#Initial population
 	print "initializing population.."
 	P = [Genome(N=N, mt=mt, xval=(xmin, xmax)) for _ in xrange(popsize)]
@@ -48,6 +49,7 @@ def BEA(N, popsize, xmin, xmax, test, iters):
 		fprint("Iteration {0}/{1}\r".format(cnt, iters))
 		cnt += 1
 		cpop = []
+		
 		while len(cpop) < popsize:
 			#Select random parents
 			#TODO: Make SelectionMethod and CrossoverMethod parameters
@@ -70,7 +72,7 @@ def BEA(N, popsize, xmin, xmax, test, iters):
 			elif inrange(c2.getValues(), (xmin, xmax)):
 				cpop.append(c2)
 
-		P = cpop
+		P = RM.ElitismSelection(P, cpop)
 
 	#print P
 	return sorted(P, key=lambda x: x.getFitness())[0]
