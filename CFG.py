@@ -22,3 +22,33 @@ print "Iterations =",iterations
 print "Selection Scheme = ", selection_scheme
 print "Crossover Type = ", crossover_type
 print "Mutation Type = ", mutation_type
+
+def f1():
+    print "F1"
+def f2():
+    print "F2"
+def shekel():
+    print "Shekel"
+def rana():
+    print "rana"
+
+test_functions = {
+    "F1" : f1,
+    "F2" : f2,
+    "Shekel" : shekel,
+    "Rana" : rana,
+}
+
+selection_schemes = {
+    "Roulette" : RouletteWheelSelection,
+    "Tournament" : TournamentSelection,
+    "RankBiased" : RankBiasedSelection,
+}
+
+crossover_types = {
+    "OnePoint" : OnePointCrossover,
+}
+
+mutation_types = {
+    "Whatever" : Whatever
+}
