@@ -27,7 +27,6 @@ class Genome:
 				cval = mt.uniform(xmin, xmax)
 				self._values.append(cval)
 				self._dna.append(BitArray(float=cval, length=32))
-
 		#If we get a list of DNA strings (from crossover for example) we just append the values of the DNA string into values.
 		elif DNA:
 			for d in DNA:

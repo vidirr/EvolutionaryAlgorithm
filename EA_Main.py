@@ -8,26 +8,26 @@ def f1_sol(N=1, popsize=1000, iters=1000):
 
 	algs = Algorithms
 	t = Tests
-	return algs.BEA(N=N, popsize=popsize, xmin=-5.12, xmax=5.11, test=t.f1)
+	return algs.BEA(N=N, popsize=popsize, xmin=-5.12, xmax=5.11, iters=500, test=t.f1)
 
 def f2_sol(N=2, popsize=1000, iters=1000):
 
 	algs = Algorithms
 	t = Tests
-	return algs.BEA(N=N, popsize=popsize, xmin=-2.048, xmax=2.047, test=t.f2)
+	return algs.BEA(N=N, popsize=popsize, xmin=-2.048, xmax=2.047, iters=500, test=t.f2)
 
 def f3_sol(N=2, popsize=1000, iters=1000):
 
 	algs = Algorithms
 	t = Tests
-	return algs.BEA(N=N, popsize=popsize, xmin=-65.536, xmax=65.535, test=t.shekel)
+	return algs.BEA(N=N, popsize=popsize, xmin=-65.536, xmax=65.535, iters=500, test=t.shekel)
 
 
 def f4_sol(N=10, popsize=1000, iters=1000):
 
 	algs = Algorithms
 	t = Tests
-	return algs.BEA(N=N, popsize=popsize, xmin=-512.0, xmax=511, test=t.rana)
+	return algs.BEA(N=N, popsize=popsize, xmin=-512.0, xmax=511, iters=500, test=t.rana)
 
 
 def main():
@@ -58,7 +58,7 @@ def main():
 
 	elif prob == "4":
 		print "Solving Rana's function problem.."
-		ans = f4_sol(N=10, popsize=100, iters=1000)
+		ans = f4_sol(N=10, popsize=500, iters=1000)
 		print "Iteration {0}/{1}".format(1000, 1000)
 
 	else:

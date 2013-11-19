@@ -15,7 +15,16 @@ def fprint(n):
 	sys.stdout.write(n)
 	sys.stdout.flush()
 
-def BEA(N, popsize, xmin, xmax, test, iters=100):
+def inrange(vals, range):
+	for v in vals:
+		if range[0] <= v <= range[1]:
+			continue
+		else:
+			return False
+	return True
+
+
+def BEA(N, popsize, xmin, xmax, test, iters):
 	"""  
 		Implementation of the BasicEvolutionaryAlgorithm as presented
 		in the slides.
@@ -28,7 +37,7 @@ def BEA(N, popsize, xmin, xmax, test, iters=100):
 	#Initial population
 	print "initializing population.."
 	P = [Genome(N=N, mt=mt, xval=(xmin, xmax)) for _ in xrange(popsize)]
-
+	import random; random.shuffle(P)
 	#Evaluate the fitness level of all Genomes.
 	print "Evaluating fitness level of initial population..",
 	for g in P:
@@ -54,10 +63,14 @@ def BEA(N, popsize, xmin, xmax, test, iters=100):
 			c1.setFitness( test(c1.getValues() ))
 			c2.setFitness( test(c2.getValues() ))
 
-			cpop.append(c1) if (math.fabs(c1.getFitness()) < math.fabs(c2.getFitness())) else cpop.append(c2)
-
+			if inrange(c1.getValues(), (xmin, xmax)) and inrange(c2.getValues(), (xmin, xmax)):
+				cpop.append(c1) if (math.fabs(c1.getFitness()) < math.fabs(c2.getFitness())) else cpop.append(c2)
+			elif inrange(c1.getValues(), (xmin, xmax)) and not inrange(c2.getValues(), (xmin, xmax)):
+				cpop.append(c1)
+			elif inrange(c2.getValues(), (xmin, xmax)):
+				cpop.append(c2)
 
 		P = cpop
 
 	#print P
-	return sorted(P)[0]
+	return sorted(P, key=lambda x: x.getFitness())[0]
