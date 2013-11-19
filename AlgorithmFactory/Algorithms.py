@@ -1,7 +1,7 @@
- 
-from EvaluationMethodFactory import EvaluationMethods as EM
+
 #USED INSTEAD OF RANDOM
 from MTrandom.MTrandom import  MersenneTwister as MT
+from TestsFactory import Tests as T
 from SelectionMethodFactory import SelectionMethods as SM
 from CrossoverFactory import Crossovers as CO
 from ReplacementMethodFactory import ReplacementMethods as RM
@@ -10,6 +10,26 @@ from EntitiesFactory.Entities import Genome
 #Just used for shuffle-ing
 import random
 import math
+
+
+#Arrays that map string names to functions
+test_functions = {
+    'F1' : T.f1,
+    'F2' : T.f2,
+    'Rana' : T.rana,
+    'Shekel' : T.shekel,
+}
+
+selection_schemes = {
+    "Roulette" : SM.RouletteWheelSelection,
+    "Tournament" : SM.TournamentSelection,
+    "RankBiased" : SM.RankBiasedSelection,
+}
+
+crossover_types = {
+    "OnePoint" : CO.OnePointCrossover,
+    "TwoPoint" : CO.TwoPointCrossover,
+}
 
 def fprint(n):
 	import sys
@@ -25,12 +45,13 @@ def inrange(vals, range):
 	return True
 
 
-def BEA(N, popsize, xmin, xmax, test, iters):
+def BEA(N, popsize, xmin, xmax, testfunc, iters, crossover, selection):
 	"""  
 		Implementation of the BasicEvolutionaryAlgorithm as presented
 		in the slides.
 
 	"""
+	test = test_functions[testfunc]
 	mt = MT()
 	cnt, Done = 0, False
 
@@ -54,8 +75,8 @@ def BEA(N, popsize, xmin, xmax, test, iters):
 			#Select random parents
 			#TODO: Make SelectionMethod and CrossoverMethod parameters
 			#to the algorithm so that it can be envoked for any problem.
-			p1, p2 = SM.TournamentSelection(P, mt), SM.TournamentSelection(P, mt) 
-			c1, c2 = CO.TwoPointCrossover(p1, p2, mt)
+			p1, p2 = selection_schemes[selection](P, mt), selection_schemes[selection](P, mt)
+			c1, c2 = crossover_types[crossover](p1, p2, mt)
 
 			#TODO: Implement mutation.
 			#mutate(c1, c2)
