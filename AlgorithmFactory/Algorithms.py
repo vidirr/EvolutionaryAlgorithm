@@ -45,6 +45,16 @@ def inrange(vals, range):
 	return True
 
 
+def mutate(c, chance, mt):
+
+	if mt.genrand_real1() <= chance:
+
+		chrom = c.getDNA()[mt.randint( 0, len(c.getDNA()) - 1)]
+		bit = mt.randint(0, len(bit.bin) - 1)
+		chrom.bin[bit] = !chrom.bin[bit]
+
+
+
 def BEA(N, popsize, xmin, xmax, testfunc, iters, crossover, selection):
 	"""  
 		Implementation of the BasicEvolutionaryAlgorithm as presented
@@ -93,7 +103,7 @@ def BEA(N, popsize, xmin, xmax, testfunc, iters, crossover, selection):
 			elif inrange(c2.getValues(), (xmin, xmax)):
 				cpop.append(c2)
 
-		P = RM.ElitismSelection(P, cpop)
+		P = RM.ElitismReplacement(P, cpop)
 
 	#print P
 	return sorted(P, key=lambda x: x.getFitness())[0]

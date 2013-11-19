@@ -10,7 +10,7 @@ def f1(xs):
 def f2(xs):
     term1 = xs[0]**2 - xs[1]
     term2 = 1.0 - xs[0]
-    return float(100 * term1 * term2 + term2 * term2)
+    return float(100 * term1 * term1 + term2 * term2)
 
 def shekel(xs):
     f5_arr = [[-32.0, -16.0, 0.0, 16.0, 32.0,

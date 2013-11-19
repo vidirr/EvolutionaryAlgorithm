@@ -4,14 +4,14 @@
 """
 import random
 
-def Generational(pop, cpop):
+def GenerationalReplacement(pop, cpop):
 	"""
 	Simply replaces the entire population with the new population.
 
 	"""
 	return cpop
 
-def SteadyStateSelection(pop, cpop):
+def SteadyStateReplacement(pop, cpop):
 	"""
 	Fewer parents then offspring.
 	Some parents always survive.
@@ -20,7 +20,7 @@ def SteadyStateSelection(pop, cpop):
 
 
 
-def ElitismSelection(pop, cpop):
+def ElitismReplacement(pop, cpop):
 	"""
 	Take some small number of the best parents
 	and keep them in place of the worst offspring
@@ -42,7 +42,7 @@ def ElitismSelection(pop, cpop):
 	return newpop
 
 
-def TruncationSelection(pop, cpop):
+def TruncationReplacement(pop, cpop):
 	"""
 	 Take the best N from the union of parent and
 	offspring populations. Very strong selection, 
