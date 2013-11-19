@@ -24,11 +24,15 @@ def main():
 	#This will of course be parsed from the config file like everything else.
 	if(len(sys.argv) > 1):
 		prob = sys.argv[1]
+	else:
+		prob = "1"
 
 	#TODO: Parse config.
 	#I just don't feel like it right now.
 	if prob == "1":
-		ans = f1_sol(50)
+		print "Solving De Jong F1 problem.."
+		ans = f1_sol(100)
+		print "Iteration {0}/{1}".format(1000, 1000)
 	elif prob == "2":
 		ans = f2_sol(1000)
 	else:

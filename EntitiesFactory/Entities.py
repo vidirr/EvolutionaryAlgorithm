@@ -42,7 +42,7 @@ class GenomeF1:
 
 
 	def __repr__(self):
-		return "GenomeF1: " + "Fit: " + str(self._fitness) + "\n" + "DNA: " + str(self._dna.bin) + "\n\n"
+		return "Genome type: F1\n" + "Fit: " + str(self._fitness) + "\n" + "DNA: " + str(self._dna.bin) + "\n\n"
 
 	def setFitness(self, f):
 		self._fitness = f

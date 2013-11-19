@@ -20,14 +20,20 @@ def OnePointCrossover(g1, g2, mt):
 	======================================
 	"""
 
-	point = mt.randint(0, len(g1.getDNA().bin))
 
-	#Crossover
-	dna1, dna2 = g1.getDNA().bin, g2.getDNA().bin
+	#We get two double arrays, dna1 == [[1010110...], [011101101..], ] etc.
+	dna1, dna2 = g1.getDNA(), g2.getDNA()
+	c1col = [], c2col = []
+	
+	for i in range( len(dna1) ):
 
-	c1 = dna1[:point] + dna2[point:]
-	c2 = dna2[:point] + dna1[point:]
+		point = mt.randint(0, len(dna1))
+		#Crossover
+		x, y = dna1[i], dna2[i]
+		c1 = x[:point] + y[point:]
+		c2 = y[:point] + x[point:]
 
+		c1col.append(c1), c2col.append(c2)
 	#import pdb; pdb.set_trace()
 
-	return GenomeF1(DNA='0b' + c1), GenomeF1(DNA='0b' + c2)
+	return GenomeF1(DNA=c1col), GenomeF1(DNA=c2col)
