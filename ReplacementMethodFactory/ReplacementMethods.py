@@ -50,4 +50,6 @@ def TruncationReplacement(pop, cpop):
 	premature convergence problems.
 
 	"""
-	pass
+	idx = len(pop)/2
+	foo = pop + cpop
+	return sorted(foo, key=lambda x: x.getFitness())

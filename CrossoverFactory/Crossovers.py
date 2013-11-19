@@ -28,7 +28,7 @@ def OnePointCrossover(g1, g2, mt):
 	
 	for i in range( len(dna1) ):
 
-		point = mt.randint(0, len(dna1[i].bin))
+		point = mt.randint(0, len(dna1[i].bin) - 1)
 		#Crossover
 		x, y = dna1[i].bin, dna2[i].bin
 		c1 = x[:point] + y[point:]
@@ -50,8 +50,8 @@ def TwoPointCrossover(g1, g2, mt):
 
 	for i in range( len(dna1) ):
 
-		p1 =  mt.randint(0, len(dna1[i].bin))
-		p2 =  mt.randint(0, len(dna1[i].bin))
+		p1 =  mt.randint(0, len(dna1[i].bin) - 1)
+		p2 =  mt.randint(0, len(dna1[i].bin) - 1)
 
 		p1 , p2 = sort(p1, p2)
 
@@ -62,5 +62,37 @@ def TwoPointCrossover(g1, g2, mt):
 
 		c1col.append(c1)
 		c2col.append(c2)
+
+	return Genome(DNA=c1col), Genome(DNA=c2col)
+
+def UniformCrossover(g1, g2, mt):
+
+	dna1, dna2 = g1.getDNA(), g2.getDNA()
+	c1col = []
+	c2col = []
+
+	for i in range( len(dna1) ):
+
+		c1 = list(dna1[i].bin)
+		c2 = list(dna2[i].bin)
+
+		#Select random number of bits to crossover.
+		for _ in range(mt.randint(0, len(dna1[i].bin) - 1)):
+
+			bit = mt.randint(0, len(dna1[i].bin) - 1)
+			c1[bit], c2[bit] = c2[bit], c1[bit]
+			
+		map(str, c1)
+		map(str, c2)
+
+		c1s = ""
+		c2s = ""
+
+		for i in range(len(c1)):
+			c1s += c1[i]
+			c2s += c2[i]
+
+		c1col.append(c1s)
+		c2col.append(c2s)
 
 	return Genome(DNA=c1col), Genome(DNA=c2col)

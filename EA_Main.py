@@ -2,6 +2,7 @@
 from AlgorithmFactory import Algorithms
 import sys
 import ConfigParser
+import time
 
 #    Returns a dict with the configuration values of the string
 #    that's sent in to the function.
@@ -50,4 +51,7 @@ def main():
         print ans
 
 if __name__ == "__main__":
+	t1 = time.time()
 	main()
+	t2 = time.time()
+	print "Time: {0}".format(t2 - t1)
