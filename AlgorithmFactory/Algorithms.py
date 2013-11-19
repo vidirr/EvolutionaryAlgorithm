@@ -1,6 +1,7 @@
 
 #USED INSTEAD OF RANDOM
 from MTrandom.MTrandom import  MersenneTwister as MT
+from TestsFactory import Tests as T
 from SelectionMethodFactory import SelectionMethods as SM
 from CrossoverFactory import Crossovers as CO
 from EntitiesFactory.Entities import Genome
@@ -8,6 +9,15 @@ from EntitiesFactory.Entities import Genome
 #Just used for shuffle-ing
 import random
 import math
+
+
+#Arrays that map string names to functions
+test_functions = {
+    'F1' : T.f1,
+    'F2' : T.f2,
+    'Rana' : T.rana,
+    'Shekel' : T.shekel,
+}
 
 selection_schemes = {
     "Roulette" : SM.RouletteWheelSelection,
@@ -34,12 +44,13 @@ def inrange(vals, range):
 	return True
 
 
-def BEA(N, popsize, xmin, xmax, test, iters, crossover, selection):
+def BEA(N, popsize, xmin, xmax, testfunc, iters, crossover, selection):
 	"""  
 		Implementation of the BasicEvolutionaryAlgorithm as presented
 		in the slides.
 
 	"""
+	test = test_functions[testfunc]
 	mt = MT()
 	cnt, Done = 0, False
 
