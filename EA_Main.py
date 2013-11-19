@@ -2,7 +2,7 @@
 from AlgorithmFactory import Algorithms
 import sys
 import ConfigParser
-
+import stats
 #    Returns a dict with the configuration values of the string
 #    that's sent in to the function.
 
@@ -32,7 +32,7 @@ def main():
 	if(len(sys.argv) > 1):
 		prob = sys.argv[1]
 	else:
-		prob = "TEST2"
+		prob = "f2_2"
 
     #Read algorithm configuration from cfg file.
 	cfg = get_configuration(prob)
@@ -41,13 +41,19 @@ def main():
 
     #The function name is read from the cfg file and mapped using an associative array
     #Other parameters for the current test are then also read from the cfg file.
-	ans = algs.BEA(N = cfg['n'], popsize = cfg['population_size'], xmin = cfg['range_min'], xmax = cfg['range_max'],
-        testfunc = cfg['test_function'], iters = cfg['iterations'], crossover = cfg['crossover_type'],
-        selection = cfg['selection_scheme'], mutation = cfg['mutation_rate'], replacement = cfg['replacement_method'])
+	#reslist = []
+	#for i in xrange(0,30):
+            ans = algs.BEA(N = cfg['n'], popsize = cfg['population_size'], xmin = cfg['range_min'], xmax = cfg['range_max'],
+                testfunc = cfg['test_function'], iters = cfg['iterations'], crossover = cfg['crossover_type'],
+                selection = cfg['selection_scheme'], mutation = cfg['mutation_rate'], replacement = cfg['replacement_method'])
 
-        print "Iteration {0}/{1}".format(cfg['iterations'], cfg['iterations'])
+            print "Iteration {0}/{1}".format(cfg['iterations'], cfg['iterations'])
 
-        print ans
+            print ans
+            #reslist.append(ans.getFitness())
+
+        #print "StdDev: ", stats.stdev(reslist)
+        #print "Mean: ", stats.mean(reslist)
 
 if __name__ == "__main__":
 	main()
