@@ -2,69 +2,78 @@
 from TestsFactory import Tests
 from AlgorithmFactory import Algorithms
 import sys
+import ConfigParser
 
+#    Returns a dict with the configuration values of the string
+#    that's sent in to the function.
 
-def f1_sol(N=1, popsize=1000, iters=1000):
+algs = Algorithms
+t = Tests
 
-	algs = Algorithms
-	t = Tests
-	return algs.BEA(N=N, popsize=popsize, xmin=-5.12, xmax=5.11, iters=500, test=t.f1)
+def get_configuration(string):
+    config = ConfigParser.ConfigParser()
+    config.read('config.ini')
 
-def f2_sol(N=2, popsize=1000, iters=1000):
+    return {
+        'population_size' : config.getint(string, 'POPULATION_SIZE'),
+        'n': config.getint(string, 'N'),
+        'range_min': config.getfloat(string, 'RANGE_MIN'),
+        'range_max': config.getfloat(string, 'RANGE_MAX'),
+        'test_function': config.get(string, 'TEST_FUNCTION'),
+        'iterations': config.getint(string, 'ITERATIONS'),
+        'crossover_type': config.get(string, 'CROSSOVER_TYPE'),
+        'selection_scheme' : config.get(string, 'SELECTION_SCHEME'),
+        'mutation_type': config.get(string, 'MUTATION_TYPE')
+    }
 
-	algs = Algorithms
-	t = Tests
-	return algs.BEA(N=N, popsize=popsize, xmin=-2.048, xmax=2.047, iters=500, test=t.f2)
+def F1(N, popsize, iters, xmin, xmax, crossover, selection):
+	print "Solving De Jong F1 problem.."
+	return algs.BEA(N=N, popsize=popsize, xmin=xmin, xmax=xmax, test=t.f1,iters=iters, crossover=crossover, selection = selection)
 
-def f3_sol(N=2, popsize=1000, iters=1000):
+def F2(N, popsize, iters, xmin, xmax, crossover, selection):
+	print "Solving De Jong F2 problem.."
+	return algs.BEA(N=N, popsize=popsize, xmin=xmin, xmax=xmax, test=t.f2, iters=iters, crossover=crossover, selection = selection)
 
-	algs = Algorithms
-	t = Tests
-	return algs.BEA(N=N, popsize=popsize, xmin=-65.536, xmax=65.535, iters=500, test=t.shekel)
+def Shekel(N, popsize, iters, xmin, xmax, crossover, selection):
+	print "Solving Shekel's Foxholes problem.."
+	return algs.BEA(N=N, popsize=popsize, xmin=xmin, xmax=xmax, test=t.shekel, iters=iters, crossover=crossover, selection = selection)
 
+def Rana(N, popsize, iters, xmin, xmax, crossover, selection):
+	print "Solving Rana's function problem.."
+	return algs.BEA(N=N, popsize=popsize, xmin=xmin, xmax=xmax, test=t.rana, iters=iters, crossover=crossover, selection = selection)
 
-def f4_sol(N=10, popsize=1000, iters=1000):
-
-	algs = Algorithms
-	t = Tests
-	return algs.BEA(N=N, popsize=popsize, xmin=-512.0, xmax=511, iters=500, test=t.rana)
-
+tests = {
+    'F1' : F1,
+    'F2' : F2,
+    'Rana' : Rana,
+    'Shekel' : Shekel,
+}
 
 def main():
 	#Parsing command line arguments for now..
-	#1 for f1, 2 for f2 etc.
-	#This will of course be parsed from the config file like everything else.
+    #We accept a single argument which is a reference to TESTx found in config.ini
 	if(len(sys.argv) > 1):
 		prob = sys.argv[1]
 	else:
-		prob = "1"
+		prob = "TEST3"
 
-	#TODO: Parse config.
-	#I just don't feel like it right now.
-	if prob == "1":
-		print "Solving De Jong F1 problem.."
-		ans = f1_sol(N=1, popsize=100, iters=1000)
-		print "Iteration {0}/{1}".format(1000, 1000)
+    #Read algorithm configuration from cfg file.
+	cfg = get_configuration(prob)
 
-	elif prob == "2":
-		print "Solving De Jong F2 problem.."
-		ans = f2_sol(N=2, popsize=100, iters=100)
-		print "Iteration {0}/{1}".format(100, 100)
+    #The function name is read from the cfg file and mapped using an associative array
+    #Other parameters for the current test are then also read from the cfg file.
+	ans = tests[cfg['test_function']](
+        N = cfg['n'],
+        popsize = cfg['population_size'],
+        iters = cfg['iterations'],
+        xmin = cfg['range_min'],
+        xmax = cfg['range_max'],
+        crossover = cfg['crossover_type'],
+        selection = cfg['selection_scheme'])
 
-	elif prob == "3":
-		print "Solving Shekel's Foxholes problem.."
-		ans = f3_sol(N=2, popsize=100, iters=1000)
-		print "Iteration {0}/{1}".format(1000, 1000)
+        print "Iteration {0}/{1}".format(cfg['iterations'], cfg['iterations'])
 
-	elif prob == "4":
-		print "Solving Rana's function problem.."
-		ans = f4_sol(N=10, popsize=500, iters=1000)
-		print "Iteration {0}/{1}".format(1000, 1000)
-
-	else:
-		print "Invalid input."
-		return
-	print ans
+        print ans
 
 if __name__ == "__main__":
 	main()
