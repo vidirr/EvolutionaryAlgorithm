@@ -24,6 +24,10 @@ class GenomeF1:
 			self._dna = BitArray(float=self._value, length=32)
 			return
 
+		elif DNA is not None:
+			self._dna = []
+			
+
 		elif DNA is None:
 			self._value = value
 			self._dna = BitArray(float=value, length=32)
