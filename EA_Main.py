@@ -21,7 +21,8 @@ def get_configuration(string):
         'iterations': config.getint(string, 'ITERATIONS'),
         'crossover_type': config.get(string, 'CROSSOVER_TYPE'),
         'selection_scheme' : config.get(string, 'SELECTION_SCHEME'),
-        'mutation_type': config.get(string, 'MUTATION_TYPE')
+        'mutation_type': config.get(string, 'MUTATION_TYPE'),
+        'message' : config.get(string, 'MESSAGE')
     }
 
 def main():
@@ -30,21 +31,16 @@ def main():
 	if(len(sys.argv) > 1):
 		prob = sys.argv[1]
 	else:
-		prob = "TEST1"
+		prob = "TEST7"
 
     #Read algorithm configuration from cfg file.
 	cfg = get_configuration(prob)
+        print cfg['message']
 
     #The function name is read from the cfg file and mapped using an associative array
     #Other parameters for the current test are then also read from the cfg file.
-	ans = algs.BEA(N = cfg['n'],
-            popsize = cfg['population_size'],
-            xmin = cfg['range_min'],
-            xmax = cfg['range_max'],
-            testfunc = cfg['test_function'],
-            iters = cfg['iterations'],
-            crossover = cfg['crossover_type'],
-            selection = cfg['selection_scheme'])
+	ans = algs.BEA(N = cfg['n'], popsize = cfg['population_size'], xmin = cfg['range_min'], xmax = cfg['range_max'],
+        testfunc = cfg['test_function'], iters = cfg['iterations'], crossover = cfg['crossover_type'], selection = cfg['selection_scheme'])
 
         print "Iteration {0}/{1}".format(cfg['iterations'], cfg['iterations'])
 
