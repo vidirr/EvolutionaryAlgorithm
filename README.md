@@ -6,7 +6,7 @@ Evolutionary Algorithms
 1. [Introduction](#intro)
 2. [Installation](#install)
 3. [Running the program](#run)
-...1 [Configuration File](#config)
+⋅⋅1 [Configuration File](#config)
 
 
 <a name="intro" />
