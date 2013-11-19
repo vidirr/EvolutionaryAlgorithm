@@ -31,11 +31,12 @@ def main():
 	if(len(sys.argv) > 1):
 		prob = sys.argv[1]
 	else:
-		prob = "TEST7"
+		prob = "TEST2"
 
     #Read algorithm configuration from cfg file.
 	cfg = get_configuration(prob)
-        print cfg['message']
+        for att in cfg:
+            print "{0} = {1}".format(str(att).upper(), cfg[att])
 
     #The function name is read from the cfg file and mapped using an associative array
     #Other parameters for the current test are then also read from the cfg file.

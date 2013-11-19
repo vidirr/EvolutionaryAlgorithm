@@ -55,7 +55,7 @@ def BEA(N, popsize, xmin, xmax, testfunc, iters, crossover, selection):
 	mt = MT()
 	cnt, Done = 0, False
 
-	print "Configuration:\n============\nN: {0}\nPopulation size: {1}\nRange: {2}\nIterations: {3}\n".format(N, popsize, (xmin, xmax), iters)
+	#print "Configuration:\n============\nN: {0}\nPopulation size: {1}\nRange: {2}\nIterations: {3}\n".format(N, popsize, (xmin, xmax), iters)
 	#Initial population
 	print "initializing population.."
 	P = [Genome(N=N, mt=mt, xval=(xmin, xmax)) for _ in xrange(popsize)]
