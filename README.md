@@ -34,7 +34,7 @@ The program is initiated from the commandline, where the name of the test to be 
 
 <a name="config" />
 ##4 - Configuration File
-The configuration file is called <code>config.ini</code>.
+The configuration file is called <code>config.ini</code>. All tests are defined within that file. You can add multiple tests to <code>config.ini</code>, and then execute that test by passing the test name as an argument to the program.
 
 Example configuration for a single test:
 ```ini
@@ -51,4 +51,3 @@ MUTATION_RATE = 0.01                    ;Mutation rate
 REPLACEMENT_METHOD = Generational       ;Generational, Elitism
 MESSAGE = Solving De Jong F1 problem..
 ```
-You can add multiple tests to a single config.ini file, and then execute that test by passing the test name as an argument to the program.
