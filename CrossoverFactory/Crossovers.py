@@ -119,3 +119,18 @@ def UniformCrossover(g1, g2, mt):
 		c2col.append(c2s)
 
 	return Genome(DNA=c1col), Genome(DNA=c2col)
+
+
+def RandomCrossover(g1, g2, mt):
+
+	sel = mt.randint(0, 2)
+
+	if sel == 0:
+		return OnePointCrossover(g1, g2, mt)
+	elif sel == 1:
+		return TwoPointCrossover(g1, g2, mt)
+	elif sel == 2:
+		return UniformCrossover(g1, g2, mt)
+	else:
+		print "WAAAT"
+		return

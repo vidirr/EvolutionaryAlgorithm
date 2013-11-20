@@ -20,9 +20,6 @@ def SteadyStateReplacement(pop, cpop):
 	idx = (len(pop)/10) * 4
 	return sorted(pop, key=lambda x: x.getFitness())[:idx] + sorted(cpop, key=lambda x: x.getFitness())[idx:len(pop)]
 
-
-
-
 def ElitismReplacement(pop, cpop):
 	"""
 	Take some small number of the best parents
@@ -51,7 +48,6 @@ def ElitismReplacement(pop, cpop):
 	#mport time; time.sleep(1)
 	return newpop
 
-
 def TruncationReplacement(pop, cpop):
 	"""
 	 Take the best N from the union of parent and
@@ -62,3 +58,16 @@ def TruncationReplacement(pop, cpop):
 	"""
 	foo = pop + cpop
 	return sorted(foo, key=lambda x: x.getFitness())[:len(pop)]
+
+def RandomReplacement(pop, cpop):
+
+	sel = random.randint(0, 3)
+
+	if sel  == 0:
+		return GenerationalReplacement(pop, cpop)
+	if sel == 1:
+		return SteadyStateReplacement(pop, cpop)
+	if sel == 2:
+		return ElitismReplacement(pop, cpop)
+	if sel == 3:
+		return TruncationReplacement(pop, cpop)

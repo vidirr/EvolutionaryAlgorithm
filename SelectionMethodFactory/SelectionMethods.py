@@ -30,7 +30,8 @@ def RankBiasedSelection(P, mt):
 	Selects parent based on relative fitness.
 	"""
 	pop = sorted(P, key=lambda x: x.getFitness())
-	b = 3.5
+	#b = 3.5
+	b = 7
 	U = mt.uniform(0, 1)
 	idx = math.floor( len(P)*((b - math.sqrt(b**2 - 4.0*(b - 1)*U)) / 2.0) / (b - 1) ) 
 	idx = int(idx)
