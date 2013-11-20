@@ -72,7 +72,7 @@ def BEA(N, popsize, xmin, xmax, testfunc, iters, crossover, selection, mutation,
 	mt = MT()
 	cnt, Done = 0, False
 	best = None
-
+	fitnesscalls = 0
 	#print "Configuration:\n============\nN: {0}\nPopulation size: {1}\nRange: {2}\nIterations: {3}\n".format(N, popsize, (xmin, xmax), iters)
 	#Initial population
 	#print "initializing population.."
@@ -82,6 +82,7 @@ def BEA(N, popsize, xmin, xmax, testfunc, iters, crossover, selection, mutation,
 	print "Evaluating fitness level of initial population..",
 	for g in P:
 		g.setFitness( test(g.getValues()) )
+		fitnesscalls += 1
 
 	print "Done.\nStarting algorithm.\n"
 	while cnt < iters and not Done:
@@ -99,6 +100,9 @@ def BEA(N, popsize, xmin, xmax, testfunc, iters, crossover, selection, mutation,
 			#individual into the test function.
 			c1.setFitness( test(c1.getValues() ))
 			c2.setFitness( test(c2.getValues() ))
+			fitnesscalls += 2
+			c1.setNrOfFitnessCalls(fitnesscalls)
+			c2.setNrOfFitnessCalls(fitnesscalls)
 			mutate(c1, mutation, mt)
 			mutate(c2, mutation, mt)
 

@@ -77,7 +77,7 @@ def UniformCrossover(g1, g2, mt):
 		c2 = list(dna2[i].bin)
 
 		#Select random number of bits to crossover.
-		for _ in range(mt.randint(0, len(dna1[i].bin) - 1)):
+		for _ in range(mt.randint(1, len(dna1[i].bin) - 1)):
 
 			bit = mt.randint(0, len(dna1[i].bin) - 1)
 			c1[bit], c2[bit] = c2[bit], c1[bit]

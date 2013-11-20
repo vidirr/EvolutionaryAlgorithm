@@ -20,6 +20,8 @@ class Genome:
 		self._fitness = None #Uninitialzed
 		#Used in Roulette Wheel Selection
 		self._P = None
+		#Used for statistics
+		self._fitnessCalls = None
 
 		if mt:
 			xmin, xmax = xval
@@ -40,7 +42,7 @@ class Genome:
 		
 	def __repr__(self):
 
-		rep = "Fitness level: {0}\n".format(self._fitness)
+		rep = "Fitness level: {0} - Fitness callls: {1}\n".format(self._fitness, self._fitnessCalls)
 		for i in range(len(self._values)):
 		 	rep += 'Chromosome {0} - Val: {1} - DNA: {2} \n'.format(i, self._values[i], self._dna[i].bin)
 		return rep
@@ -57,5 +59,12 @@ class Genome:
 
 	def getValues(self):
 		return self._values
+
+	#Used for statistics
+	def setNrOfFitnessCalls(self, n):
+		self._fitnessCalls = n
+
+	def getNrOfFitnessCalls(self):
+		return self._fitnessCalls
 
 
