@@ -6,7 +6,7 @@ Evolutionary Algorithms
 1. [Introduction](#intro)
 2. [Installation](#install)
 3. [Running the program](#run)
-  1. [Configuration File](#config)
+4. [Configuration File](#config)
 
 
 <a name="intro" />
@@ -33,7 +33,8 @@ Installing the suite is as simple as cloning the repo and running EA_main.py [na
 The program is initiated from the commandline, where the name of the test to be run is passed as a argument.
 
 <a name="config" />
-###3.i - Configuration File
+##4 - Configuration File
+The configuration file is called <code>config.ini</code>.
 Example configuration for a single test:
 ```ini
 [f1_1]                                   ;EA name
