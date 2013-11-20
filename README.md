@@ -35,6 +35,7 @@ The program is initiated from the commandline, where the name of the test to be 
 <a name="config" />
 ##4 - Configuration File
 The configuration file is called <code>config.ini</code>.
+
 Example configuration for a single test:
 ```ini
 [f1_1]                                   ;EA name
