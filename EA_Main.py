@@ -44,6 +44,7 @@ def main():
     #The function name is read from the cfg file and mapped using an associative array
     #Other parameters for the current test are then also read from the cfg file.
     reslist = []
+    fitlist = []
     for i in xrange(0,5):
         ans = algs.BEA(N = cfg['n'], popsize = cfg['population_size'], xmin = cfg['range_min'], xmax = cfg['range_max'],
         testfunc = cfg['test_function'], iters = cfg['iterations'], crossover = cfg['crossover_type'],
@@ -53,9 +54,13 @@ def main():
 
         print ans
         reslist.append(ans.getFitness())
+        fitlist.append(ans.getNrOfFitnessCalls())
     #print reslist
+    print fitlist
     print "StdDev: ", numpy.std(reslist)
     print "Mean: ", numpy.mean(reslist)
+    print "Fitness calls StdDev ", numpy.std(fitlist)
+    print "Fitness calls Mean ", numpy.mean(fitlist)
 
 if __name__ == "__main__":
     t1 = time.time()
