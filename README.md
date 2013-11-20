@@ -21,7 +21,7 @@ This code is published under the GNU GPL.
 <a name="install" />
 ##2. - Installation
 
-Installing the suite is as simple as cloning the repo and running EA_main.py [name_of_test]. The example test configurations can be found inside config.ini.
+Installing the suite is as simple as cloning the repo and running EA_main.py [name_of_test]. The example test configurations can be found inside <code>config.ini</code>.
 
 
 <code>git clone https://www.github.com/vidirr/EvolutionaryAlgorithm</code>
