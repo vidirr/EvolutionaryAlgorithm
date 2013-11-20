@@ -34,7 +34,7 @@ The program is initiated from the commandline, where the name of the test to be 
 
 <a name="config" />
 ###3.i - Configuration File
-Example configuration:
+Example configuration for a single test:
 ```ini
 [f1_1]                                   ;EA name
 POPULATION_SIZE = 100
@@ -49,3 +49,4 @@ MUTATION_RATE = 0.01                    ;Mutation rate
 REPLACEMENT_METHOD = Generational       ;Generational, Elitism
 MESSAGE = Solving De Jong F1 problem..
 ```
+You can add multiple tests to a single config.ini file, and then execute that test by passing the test name as an argument to the program.
