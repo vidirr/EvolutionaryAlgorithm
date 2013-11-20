@@ -10,7 +10,7 @@ Evolutionary Algorithms
 
 
 <a name="intro" />
-##1. - Introduction
+##1. Introduction
 
 The following code is written for a programming assignment at Reykjavík University for the class T-504-ITML - Introduction to Machine learning.
 It focuses on implementing different EA algorithms, as well as different
@@ -19,7 +19,7 @@ approaches for solving them using crossovers, mutation, selection etc.
 This code is published under the GNU GPL.
 
 <a name="install" />
-##2. - Installation
+##2. Installation
 
 Installing the suite is as simple as cloning the repo and running EA_main.py [name_of_test]. The example test configurations can be found inside [<code>config.ini</code>](https://github.com/vidirr/EvolutionaryAlgorithm/blob/master/config.ini).
 
@@ -28,12 +28,12 @@ Installing the suite is as simple as cloning the repo and running EA_main.py [na
 
 
 <a name="run" />
-##3. - Running the program
+##3. Running the program
 
 The program is initiated from the commandline, where the name of the test to be run is passed as a argument.
 
 <a name="config" />
-##4 - Configuration File
+##4 Configuration File
 The configuration file is called [<code>config.ini</code>](https://github.com/vidirr/EvolutionaryAlgorithm/blob/master/config.ini). All tests are defined within that file. You can add multiple tests to [<code>config.ini</code>](https://github.com/vidirr/EvolutionaryAlgorithm/blob/master/config.ini), and then execute that test by passing the test name as an argument to the program.
 
 Example configuration for a single test:
