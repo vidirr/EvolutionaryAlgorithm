@@ -17,6 +17,9 @@ def SteadyStateReplacement(pop, cpop):
 	Some parents always survive.
 
 	"""
+	idx = (len(pop)/10) * 4
+	return sorted(pop, key=lambda x: x.getFitness())[:idx] + sorted(cpop, key=lambda x: x.getFitness())[idx:len(pop)]
+
 
 
 
@@ -30,12 +33,19 @@ def ElitismReplacement(pop, cpop):
 	"""
 	pop = sorted(pop, key=lambda x: x.getFitness())
 	cpop = sorted(cpop, key=lambda x: x.getFitness())[::-1]
-	newpop = []
+
 	# 10% of best parents might survive.
 	idx = len(pop) / 10
 
 	#Make sure we only replace with better children.
-	newpop = pop[:idx] + cpop[idx:]
+	bestparents = pop[:idx]
+	worstchildren = cpop[:idx]
+	newpop = sorted(pop + cpop, key=lambda x: x.getFitness())[:len(pop) - idx]
+	for i in range(len(bestparents)):
+		if bestparents[i].getFitness() < worstchildren[i].getFitness():
+			newpop.append(bestparents[i])
+		else:
+			newpop.append(worschildren[i])
 
 	#print "Length: " + str(len(newpop)) + "\n"
 	#mport time; time.sleep(1)
