@@ -21,8 +21,16 @@ This code is published under the GNU GPL.
 <a name="install" />
 ##2. - Installation
 
+Installing the suite is as simple as cloning the repo and running EA_main.py [name_of_test]. The example test configurations can be found inside config.ini.
+
+
+1. git clone https://www.github.com/vidirr
+2. python EA_main.py f1_1
+
 <a name="run" />
 ##3. - Running the program
+
+The program is initiated from the commandline, where the name of the test to be run is passed as a argument.
 
 <a name="config" />
 ###3.i - Configuration File
