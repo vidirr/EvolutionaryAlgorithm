@@ -34,7 +34,7 @@ The program is initiated from the commandline, where the name of the test to be 
 
 <a name="config" />
 ##4 - Configuration File
-The configuration file is called <code>config.ini</code>. All tests are defined within that file. You can add multiple tests to <code>config.ini</code>, and then execute that test by passing the test name as an argument to the program.
+The configuration file is called [<code>config.ini</code>](https://github.com/vidirr/EvolutionaryAlgorithm/blob/master/config.ini). All tests are defined within that file. You can add multiple tests to <code>config.ini</code>, and then execute that test by passing the test name as an argument to the program.
 
 Example configuration for a single test:
 ```ini
