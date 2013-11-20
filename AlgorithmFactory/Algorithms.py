@@ -106,18 +106,18 @@ def BEA(N, popsize, xmin, xmax, testfunc, iters, crossover, selection, mutation,
 			c2.setFitness( test(c2.getValues() ))
 			mutate(c1, mutation, mt)
 			mutate(c2, mutation, mt)
-			#if inrange(c1.getValues(), (xmin, xmax)) and inrange(c2.getValues(), (xmin, xmax)):
-			#	cpop.append(c1) if (c1.getFitness() < c2.getFitness()) else cpop.append(c2)
-			#elif inrange(c1.getValues(), (xmin, xmax)) and not inrange(c2.getValues(), (xmin, xmax)):
-			#	cpop.append(c1)
-			#elif inrange(c2.getValues(), (xmin, xmax)):
-			#	cpop.append(c2)
-			if inrange(c1.getValues(), (xmin, xmax)): cpop.append(c1)
-			if inrange(c2.getValues(), (xmin, xmax)): cpop.append(c2)
+
+			#This shouldn't be here under normal circumstances - but seeing that python can represent pretty huge floating point numbers
+			#we're sometimes able to find a better solution outside of the range of the problem.
+			#So - to make sure that we solve the problem within the range of the problem we use this.
+			if inrange(c1.getValues(), (xmin, xmax)): 
+				cpop.append(c1)
+			if inrange(c2.getValues(), (xmin, xmax)):
+				cpop.append(c2)
 
 
 		P = replacement_methods[replacement](P, cpop)
-		print sorted(P, key=lambda x: x.getFitness())[0]
+		#print sorted(P, key=lambda x: x.getFitness())[0]
 
 	#print P
 	return sorted(P, key=lambda x: x.getFitness())[0]
