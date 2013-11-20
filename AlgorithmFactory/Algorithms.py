@@ -61,9 +61,6 @@ def mutate(c, chance, mt):
 	bit = mt.randint(0, len(chrom.bin) - 1)
 	chrom.invert(bit)
 
-
-
-
 def BEA(N, popsize, xmin, xmax, testfunc, iters, crossover, selection, mutation, replacement):
 	"""  
 		Implementation of the BasicEvolutionaryAlgorithm as presented
@@ -77,9 +74,8 @@ def BEA(N, popsize, xmin, xmax, testfunc, iters, crossover, selection, mutation,
 	best = None
 
 	#print "Configuration:\n============\nN: {0}\nPopulation size: {1}\nRange: {2}\nIterations: {3}\n".format(N, popsize, (xmin, xmax), iters)
-	print "Configuration:\n============\nN: {0}\nPopulation size: {1}\nRange: {2}\nIterations: {3}\n".format(N, popsize, (xmin, xmax), iters)
 	#Initial population
-	print "initializing population.."
+	#print "initializing population.."
 	P = [Genome(N=N, mt=mt, xval=(xmin, xmax)) for _ in xrange(popsize)]
 	import random; random.shuffle(P)
 	#Evaluate the fitness level of all Genomes.
@@ -96,13 +92,8 @@ def BEA(N, popsize, xmin, xmax, testfunc, iters, crossover, selection, mutation,
 		
 		while len(cpop) < popsize:
 			#Select random parents
-			#TODO: Make SelectionMethod and CrossoverMethod parameters
-			#to the algorithm so that it can be envoked for any problem.
 			p1, p2 = selection_schemes[selection](P, mt), selection_schemes[selection](P, mt)
 			c1, c2 = crossover_types[crossover](p1, p2, mt)
-
-			#TODO: Implement mutation.
-			#mutate(c1, c2)
 
 			#Set the fitness of the new children by sending a list of 1
 			#individual into the test function.

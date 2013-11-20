@@ -4,6 +4,7 @@ import sys
 import ConfigParser
 #import stats
 import time
+import numpy
 #    Returns a dict with the configuration values of the string
 #    that's sent in to the function.
 
@@ -28,37 +29,36 @@ def get_configuration(string):
     }
 
 def main():
-	#Parsing command line arguments for now..
+    #Parsing command line arguments for now..
     #We accept a single argument which is a reference to TESTx found in config.ini
-	if(len(sys.argv) > 1):
-		prob = sys.argv[1]
-	else:
-		prob = "f2_2"
+    if(len(sys.argv) > 1):
+        prob = sys.argv[1]
+    else:
+        prob = "f1_1"
 
     #Read algorithm configuration from cfg file.
-	cfg = get_configuration(prob)
-        for att in cfg:
-            print "{0} = {1}".format(str(att).upper(), cfg[att])
+    cfg = get_configuration(prob)
+    for att in cfg:
+        print "{0} = {1}".format(str(att).upper(), cfg[att])
 
     #The function name is read from the cfg file and mapped using an associative array
     #Other parameters for the current test are then also read from the cfg file.
-	#reslist = []
-	#for i in xrange(0,30):
-			
+    reslist = []
+    for i in xrange(0,5):
         ans = algs.BEA(N = cfg['n'], popsize = cfg['population_size'], xmin = cfg['range_min'], xmax = cfg['range_max'],
-            testfunc = cfg['test_function'], iters = cfg['iterations'], crossover = cfg['crossover_type'],
-            selection = cfg['selection_scheme'], mutation = cfg['mutation_rate'], replacement = cfg['replacement_method'])
+        testfunc = cfg['test_function'], iters = cfg['iterations'], crossover = cfg['crossover_type'],
+        selection = cfg['selection_scheme'], mutation = cfg['mutation_rate'], replacement = cfg['replacement_method'])
 
         print "Iteration {0}/{1}".format(cfg['iterations'], cfg['iterations'])
 
         print ans
-        #reslist.append(ans.getFitness())
-
-        #print "StdDev: ", stats.stdev(reslist)
-        #print "Mean: ", stats.mean(reslist)
+        reslist.append(ans.getFitness())
+    #print reslist
+    print "StdDev: ", numpy.std(reslist)
+    print "Mean: ", numpy.mean(reslist)
 
 if __name__ == "__main__":
-	t1 = time.time()
-	main()
-	t2 = time.time()
-	print "Time: {0}".format(t2 - t1)
+    t1 = time.time()
+    main()
+    t2 = time.time()
+    print "Time: {0}".format(t2 - t1)
