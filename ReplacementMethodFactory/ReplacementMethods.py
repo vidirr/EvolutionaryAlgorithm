@@ -9,6 +9,7 @@ def GenerationalReplacement(pop, cpop):
 	Simply replaces the entire population with the new population.
 
 	"""
+	random.shuffle(cpop)
 	return cpop
 
 def SteadyStateReplacement(pop, cpop):
@@ -17,8 +18,12 @@ def SteadyStateReplacement(pop, cpop):
 	Some parents always survive.
 
 	"""
-	idx = (len(pop)/10) * 4
-	return sorted(pop, key=lambda x: x.getFitness())[:idx] + sorted(cpop, key=lambda x: x.getFitness())[idx:len(pop)]
+	idx = (len(pop)/10)
+	random.shuffle(pop)
+	random.shuffle(cpop)
+	cpop = pop[:idx] + cpop[idx:len(pop)]
+	return cpop
+	#return sorted(pop, key=lambda x: x.getFitness())[:idx] + sorted(cpop, key=lambda x: x.getFitness())[idx:len(pop)]
 
 def ElitismReplacement(pop, cpop):
 	"""
@@ -44,8 +49,7 @@ def ElitismReplacement(pop, cpop):
 		else:
 			newpop.append(worstchildren[i])
 
-	#print "Length: " + str(len(newpop)) + "\n"
-	#mport time; time.sleep(1)
+	random.shuffle(newpop)
 	return newpop
 
 def TruncationReplacement(pop, cpop):
@@ -56,15 +60,19 @@ def TruncationReplacement(pop, cpop):
 	premature convergence problems.
 
 	"""
-	foo = pop + cpop
-	return sorted(foo, key=lambda x: x.getFitness())[:len(pop)]
+	foo = sorted(pop + cpop, key=lambda x: x.getFitness())[:len(pop)]
+	random.shuffle(foo)
+	return foo
 
 def RandomReplacement(pop, cpop):
 
-	sel = random.randint(0, 3)
+	sel = random.randint(1, 3)
 
-	if sel  == 0:
-		return GenerationalReplacement(pop, cpop)
+	#GENERATIONAL NOT INCLUDED.
+	#It always showed bad results, since it basically
+	#premature converges the population at that point.
+	#if sel  == 0:
+	#	return GenerationalReplacement(pop, cpop)
 	if sel == 1:
 		return SteadyStateReplacement(pop, cpop)
 	if sel == 2:

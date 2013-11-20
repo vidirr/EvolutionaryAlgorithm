@@ -24,6 +24,7 @@ selection_schemes = {
     "Roulette" : SM.RouletteWheelSelection,
     "Tournament" : SM.TournamentSelection,
     "RankBiased" : SM.RankBiasedSelection,
+    "Random"	 : SM.RandomSelection,
 }
 
 crossover_types = {
@@ -73,11 +74,9 @@ def BEA(N, popsize, xmin, xmax, testfunc, iters, crossover, selection, mutation,
 	test = test_functions[testfunc]
 	mt = MT()
 	cnt, Done = 0, False
-	best = None
+
 	fitnesscalls = 0
-	#print "Configuration:\n============\nN: {0}\nPopulation size: {1}\nRange: {2}\nIterations: {3}\n".format(N, popsize, (xmin, xmax), iters)
-	#Initial population
-	#print "initializing population.."
+
 	P = [Genome(N=N, mt=mt, xval=(xmin, xmax)) for _ in xrange(popsize)]
 	import random; random.shuffle(P)
 	#Evaluate the fitness level of all Genomes.
@@ -93,7 +92,7 @@ def BEA(N, popsize, xmin, xmax, testfunc, iters, crossover, selection, mutation,
 		cpop = []
 		better = False
 		
-		while len(cpop) < popsize:
+		while len(cpop) < popsize and not Done:
 			#Select random parents
 			p1, p2 = selection_schemes[selection](P, mt), selection_schemes[selection](P, mt)
 			c1, c2 = crossover_types[crossover](p1, p2, mt)
@@ -114,20 +113,12 @@ def BEA(N, popsize, xmin, xmax, testfunc, iters, crossover, selection, mutation,
 			#So - to make sure that we solve the problem within the range of the problem we use this.
 			if inrange(c1.getValues(), (xmin, xmax)): 
 				cpop.append(c1)
-				if best is None or c1.getFitness() < best.getFitness():
-					best = c1
-					better = True
 			if inrange(c2.getValues(), (xmin, xmax)):
 				cpop.append(c2)
-				if best is None or c2.getFitness() < best.getFitness():
-					best = c2
-					better = True
 
 		P = replacement_methods[replacement](P, cpop)
-
-		if better:
-			print "Found after: " + str(time.time() - t1), best
-			better = False
+		if (time.time() - t1) > 120:
+			Done = True
 
 	#print P
 	return sorted(P, key=lambda x: x.getFitness())[0]

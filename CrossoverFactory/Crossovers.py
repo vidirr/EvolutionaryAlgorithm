@@ -20,7 +20,6 @@ def OnePointCrossover(g1, g2, mt):
 	======================================
 	"""
 
-
 	#We get two double arrays, dna1 == [[1010110...], [011101101..], ] etc.
 	dna1, dna2 = g1.getDNA(), g2.getDNA()
 	c1col = []

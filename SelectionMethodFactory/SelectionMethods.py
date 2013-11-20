@@ -31,8 +31,19 @@ def RankBiasedSelection(P, mt):
 	"""
 	pop = sorted(P, key=lambda x: x.getFitness())
 	#b = 3.5
-	b = 7
+	b = 3
 	U = mt.uniform(0, 1)
-	idx = math.floor( len(P)*((b - math.sqrt(b**2 - 4.0*(b - 1)*U)) / 2.0) / (b - 1) ) 
+	idx =  len(P)*( (b - math.sqrt(b**2 - 4.0*(b - 1)*U)) / 2.0)
+	idx = idx / (b - 1)
+	idx = math.floor(idx)
 	idx = int(idx)
 	return pop[idx] 
+
+def RandomSelection(P, mt):
+
+	sel = mt.randint(0, 1)
+
+	if sel == 0:
+		return TournamentSelection(P, mt)
+	else:
+		return RankBiasedSelection(P, mt)
