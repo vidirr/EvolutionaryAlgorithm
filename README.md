@@ -44,10 +44,10 @@ RANGE_MIN = -5.12                       ;Min range for test function
 RANGE_MAX = 5.11                        ;Max range for test function
 N = 1                                   ;Population size
 TEST_FUNCTION = F1                      ;F1, F2, Shekel, Rana
-ITERATIONS = 100                        ;Number of iterations the algorithm runs through
-SELECTION_SCHEME = Tournament           ;Roulette, Tournament, RankBiased
-CROSSOVER_TYPE = TwoPoint               ;OnePoint, TwoPoint
+ITERATIONS = 100                        ;Number of iterations
+SELECTION_SCHEME = Tournament           ;Tournament, RankBiased,, Random
+CROSSOVER_TYPE = TwoPoint               ;OnePoint, TwoPoint, Uniform, Random
 MUTATION_RATE = 0.01                    ;Mutation rate
-REPLACEMENT_METHOD = Generational       ;Generational, Elitism
+REPLACEMENT_METHOD = Generational       ;Generational, SteadyState, Elitism, Truncation, Random
 MESSAGE = Solving De Jong F1 problem..
 ```
