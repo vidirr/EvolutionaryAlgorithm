@@ -12,7 +12,7 @@ Evolutionary Algorithms
 <a name="intro" />
 ##1. Introduction
 
-The following code is written for a programming assignment at Reykjavík University for the class T-504-ITML - Introduction to Machine Learning.
+The following code is written for a programming assignment at [Reykjavík University](http://www.ru.is) for the class T-504-ITML - Introduction to Machine Learning.
 It focuses on implementing different EA algorithms, as well as different
 approaches for solving them using crossovers, mutation, selection etc.
 
