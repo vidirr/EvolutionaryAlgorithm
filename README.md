@@ -35,7 +35,7 @@ The program is initiated from the commandline, where the name of the test to be 
 <a name="config" />
 ###3.i - Configuration File
 Example configuration:
-<code>
+'''
 [f1_1]                                   ;EA name
 POPULATION_SIZE = 100
 RANGE_MIN = -5.12                       ;Min range for test function
@@ -48,4 +48,4 @@ CROSSOVER_TYPE = TwoPoint               ;OnePoint, TwoPoint
 MUTATION_RATE = 0.01                    ;Mutation rate
 REPLACEMENT_METHOD = Generational       ;Generational, Elitism
 MESSAGE = Solving De Jong F1 problem..
-</code>
+'''
