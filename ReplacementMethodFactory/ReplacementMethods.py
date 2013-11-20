@@ -45,7 +45,7 @@ def ElitismReplacement(pop, cpop):
 		if bestparents[i].getFitness() < worstchildren[i].getFitness():
 			newpop.append(bestparents[i])
 		else:
-			newpop.append(worschildren[i])
+			newpop.append(worstchildren[i])
 
 	#print "Length: " + str(len(newpop)) + "\n"
 	#mport time; time.sleep(1)

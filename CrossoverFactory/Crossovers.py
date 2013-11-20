@@ -66,6 +66,29 @@ def TwoPointCrossover(g1, g2, mt):
 	return Genome(DNA=c1col), Genome(DNA=c2col)
 
 def UniformCrossover(g1, g2, mt):
+	"""
+	DOES NOT WORK, BUT WOULD IMPROVE PERFORMANCE.
+
+	import copy
+
+	c1 = copy.deepcopy(g1)
+	c2 = copy.deepcopy(g2)
+
+	for i in range( len(c1.getDNA()) ):
+
+		#Select random number of bits to crossover.
+		for _ in range(mt.randint(1, len(c1.getDNA()[i].bin))):
+
+			bit = mt.randint(0, len(c1.getDNA()[i].bin) - 1)
+			temp = c1.getDNA()[i][bit]
+			c1.getDNA()[i].set(c2.getDNA()[i][bit], bit)
+			c2.getDNA()[i].set(temp, bit)
+
+
+	return c1, c2
+
+	"""
+
 
 	dna1, dna2 = g1.getDNA(), g2.getDNA()
 	c1col = []
@@ -77,7 +100,7 @@ def UniformCrossover(g1, g2, mt):
 		c2 = list(dna2[i].bin)
 
 		#Select random number of bits to crossover.
-		for _ in range(mt.randint(1, len(dna1[i].bin) - 1)):
+		for _ in range(mt.randint(1, len(dna1[i].bin))):
 
 			bit = mt.randint(0, len(dna1[i].bin) - 1)
 			c1[bit], c2[bit] = c2[bit], c1[bit]
