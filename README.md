@@ -35,7 +35,7 @@ The program is initiated from the commandline, where the name of the test to be 
 <a name="config" />
 ###3.i - Configuration File
 Example configuration:
-'''
+'''ini
 [f1_1]                                   ;EA name
 POPULATION_SIZE = 100
 RANGE_MIN = -5.12                       ;Min range for test function
