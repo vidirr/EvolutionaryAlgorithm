@@ -99,9 +99,10 @@ def BEA(N, popsize, xmin, xmax, testfunc, iters, crossover, selection, mutation,
 			#Set the fitness of the new children by sending a list of 1
 			#individual into the test function.
 			c1.setFitness( test(c1.getValues() ))
-			c2.setFitness( test(c2.getValues() ))
-			fitnesscalls += 2
+			fitnesscalls += 1
 			c1.setNrOfFitnessCalls(fitnesscalls)
+			c2.setFitness( test(c2.getValues() ))
+			fitnesscalls += 1
 			c2.setNrOfFitnessCalls(fitnesscalls)
 			mutate(c1, mutation, mt)
 			mutate(c2, mutation, mt)

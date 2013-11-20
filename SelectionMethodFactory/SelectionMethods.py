@@ -25,10 +25,13 @@ def TournamentSelection(P, mt):
 	return P[mt.randint(0, N - 1)]
 	
 
-def RankBiasedSelection(bias, P, mt):
+def RankBiasedSelection(P, mt):
 	"""
 	Selects parent based on relative fitness.
 	"""
-	u = mt.uniform(0, 1)
-	idx = math.floor( len(P)*((bias - math.sqrt(bias**2 - 4.0*(b - 1)*U)) / 2.0) / (b - 1) ) 
-	return 
+	pop = sorted(P, key=lambda x: x.getFitness())
+	b = 3.5
+	U = mt.uniform(0, 1)
+	idx = math.floor( len(P)*((b - math.sqrt(b**2 - 4.0*(b - 1)*U)) / 2.0) / (b - 1) ) 
+	idx = int(idx)
+	return pop[idx] 
