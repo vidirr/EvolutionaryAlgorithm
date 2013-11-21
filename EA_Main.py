@@ -42,8 +42,8 @@ def main():
 
     #The function name is read from the cfg file and mapped using an associative array
     #Other parameters for the current test are then also read from the cfg file.
-    reslist = []
-    fitlist = []
+    #reslist = []
+    #fitlist = []
     runs = 1
     for i in xrange(0,runs):
         ans = algs.BEA(N = cfg['n'], popsize = cfg['population_size'], xmin = cfg['range_min'], xmax = cfg['range_max'],
