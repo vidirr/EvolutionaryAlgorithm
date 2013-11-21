@@ -38,8 +38,8 @@ The configuration file is called [<code>config.ini</code>](https://github.com/vi
 
 Example configuration for a single test:
 ```ini
-[f1_1]                                   ;EA name
-POPULATION_SIZE = 100
+[f1_1]                                  ;Test name
+POPULATION_SIZE = 100					;Population size
 RANGE_MIN = -5.12                       ;Min range for test function
 RANGE_MAX = 5.11                        ;Max range for test function
 N = 1                                   ;Population size
