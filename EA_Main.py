@@ -2,9 +2,8 @@
 from AlgorithmFactory import Algorithms
 import sys
 import ConfigParser
-#import stats
 import time
-import numpy
+#import numpy
 #    Returns a dict with the configuration values of the string
 #    that's sent in to the function.
 
@@ -45,22 +44,24 @@ def main():
     #Other parameters for the current test are then also read from the cfg file.
     reslist = []
     fitlist = []
-    for i in xrange(0,5):
+    runs = 1
+    for i in xrange(0,runs):
         ans = algs.BEA(N = cfg['n'], popsize = cfg['population_size'], xmin = cfg['range_min'], xmax = cfg['range_max'],
         testfunc = cfg['test_function'], iters = cfg['iterations'], crossover = cfg['crossover_type'],
         selection = cfg['selection_scheme'], mutation = cfg['mutation_rate'], replacement = cfg['replacement_method'])
 
+        print "Run {0}/{1}".format(i+1, runs)
         print "Iteration {0}/{1}".format(cfg['iterations'], cfg['iterations'])
 
         print ans
-        reslist.append(ans.getFitness())
-        fitlist.append(ans.getNrOfFitnessCalls())
+        #reslist.append(ans.getFitness())
+        #fitlist.append(ans.getNrOfFitnessCalls())
     #print reslist
-    print fitlist
-    print "StdDev: ", numpy.std(reslist)
-    print "Mean: ", numpy.mean(reslist)
-    print "Fitness calls StdDev ", numpy.std(fitlist)
-    print "Fitness calls Mean ", numpy.mean(fitlist)
+    #print fitlist
+    #print "StdDev: ", numpy.std(reslist)
+    #print "Mean: ", numpy.mean(reslist)
+    #print "Fitness calls StdDev ", numpy.std(fitlist)
+    #print "Fitness calls Mean ", numpy.mean(fitlist)
 
 if __name__ == "__main__":
     t1 = time.time()
